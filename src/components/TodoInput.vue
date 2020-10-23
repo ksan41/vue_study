@@ -19,9 +19,8 @@ export default {
         addTodo: function(){
             // 입력 값이 있을 때만 실행하도록함
             if (this.newTodoItem !== ''){
-                var obj = {completed:false, item: this.newTodoItem}; //텍스트값, 체크 여부 담긴 개게
-                //저장로직
-                localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
+                // 상위 컴포넌트(App)에 보낼 메서드 정의, 보낼 값
+                this.$emit('addTodoItem',this.newTodoItem)
                 this.clearInput();
             }
             
