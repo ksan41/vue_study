@@ -2,7 +2,7 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems"></TodoList>
+    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -24,6 +24,10 @@ export default {
         var obj = {completed:false, item: todoItem}; //텍스트값, 체크 여부 담긴 개게
         localStorage.setItem(todoItem,JSON.stringify(obj)); // 저장로직
         this.todoItems.push(obj); //배열 맨 끝에 값 추가
+     },
+     removeOneItem:function(todoItem,index){
+        localStorage.removeItem(todoItem.item);
+        this.todoItems.splice(index,1);
      }
    }
    ,

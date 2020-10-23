@@ -18,16 +18,12 @@ export default {
     props:['propsdata'],
     methods:{
         removeTodo:function(todoItem,index){
-            console.log(todoItem,index);
-            localStorage.removeItem(todoItem);
-            this.todoItems.splice(index,1);
+             this.$emit('removeItem',todoItem,index)
         },
         toggleComplete:function(todoItem,index){
             todoItem.completed = !todoItem.completed; //클릭시 true로 변경
-
-            // 현재 update가 없기때문에 삭제해서 다시 갱신함.
-            localStorage.removeItem(todoItem.item); //로컬스토리지에서 삭제
-            localStorage.setItem(todoItem.item,JSON.stringify(todoItem));
+             localStorage.removeItem(todoItem.item); //로컬스토리지에서 삭제
+             localStorage.setItem(todoItem.item,JSON.stringify(todoItem));
         }
     }
 
