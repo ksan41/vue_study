@@ -1,9 +1,10 @@
 <template>
   <div>
      <ul>
-         <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow">
-             <i class="checkBtn fas fa-check" v-on:click="toggleComplete"></i>
-             {{todoItem}}
+         <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+             <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" 
+                v-on:click="toggleComplete(todoItem,index)"></i>
+             <span v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
              <span class="removeBtn" v-on:click="removeTodo(todoItem,index)">
                  <i class="fas fa-trash"></i>
              </span>
@@ -25,8 +26,12 @@ export default {
             localStorage.removeItem(todoItem);
             this.todoItems.splice(index,1);
         },
-        toggleComplete:function(){
+        toggleComplete:function(todoItem,index){
+            todoItem.completed = !todoItem.completed; //클릭시 true로 변경
 
+            // 현재 update가 없기때문에 삭제해서 다시 갱신함.
+            localStorage.removeItem(todoItem.item); //로컬스토리지에서 삭제
+            localStorage.setItem(todoItem.item,JSON.stringify(todoItem));
         }
     },
     created:function(){
@@ -35,7 +40,10 @@ export default {
         if(localStorage.length > 0){
             for(var i = 0; i<localStorage.length;i++){
                 if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-                    this.todoItems.push(localStorage.key(i));
+                    // input에서 문자열로 데이터를 넣었기 때문에 다시 JSON형식으로 변환
+                   // console.log(JSON.parse(localStorage.getItem(localStorage.key(i)))); 
+                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+                    //this.todoItems.push(localStorage.key(i));
                 }
             }
         }
@@ -60,7 +68,7 @@ li{
     background: white;
     border-radius: 5px;
 }
-.checkBth{
+.checkBtn{
     line-height: 45px;
     color: #62acde;
     margin-right: 5px;
@@ -68,5 +76,11 @@ li{
 .removeBtn{
     margin-left: auto;
     color: #de4343;
+}
+.textCompleted{
+    color:lightgrey;
+}
+.checkBtnCompleted{
+    color:lightgray;
 }
 </style>
