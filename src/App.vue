@@ -2,7 +2,7 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
-    <TodoList></TodoList>
+    <TodoList v-bind:propsdata="todoItems"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -14,7 +14,24 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 
 export default {
- components:{
+   data:function(){
+     return {
+      todoItems: []
+     }
+   },
+  created:function(){
+        // 로컬스토리지에 데이터가 있다면 li 생성
+        if(localStorage.length > 0){
+            for(var i = 0; i<localStorage.length;i++){
+                if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
+                    // input에서 문자열로 데이터를 넣었기 때문에 다시 JSON형식으로 변환
+                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+                }
+            }
+        }
+  }
+  ,
+  components:{
    'TodoHeader':TodoHeader,
    'TodoInput':TodoInput,
    'TodoList':TodoList,

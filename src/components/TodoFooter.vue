@@ -25,6 +25,12 @@ export default {
     border-radius:5px ;
     margin: 0 auto;
   }
+
+  .clearAllBtn:hover{
+    cursor: pointer;
+    opacity: 60%;
+  }
+
   .clearAllBtn{
     color: #e20303;
     display: block;
