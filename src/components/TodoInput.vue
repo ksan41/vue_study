@@ -4,15 +4,29 @@
       <span class="addContainer" v-on:click="addTodo">
           <i class="fas fa-plus addBtn"></i>
       </span>
-    
+
+    <Modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">
+            경고!
+        </h3>
+        <p slot="body">
+            할 일을 입력하세요.
+        </p>
+        <p slot="footer">
+            copy right
+        </p>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
+
 export default {
     data: function(){
         return {
-            newTodoItem:""
+            newTodoItem:"",
+            showModal: false
         }
     },
     methods: {
@@ -22,12 +36,17 @@ export default {
                 // 상위 컴포넌트(App)에 보낼 메서드 정의, 보낼 값
                 this.$emit('addTodoItem',this.newTodoItem)
                 this.clearInput();
+            } else{
+                this.showModal = !this.showModal;
             }
             
         },
         clearInput: function(){
              this.newTodoItem="";
         }
+    },
+    components:{
+        'Modal':Modal
     }
 }
 </script>
