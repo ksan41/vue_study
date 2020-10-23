@@ -9,8 +9,7 @@
 export default {
   methods: {
     clearTodo: function(){
-      // 로컬스토리지 데이터 모두 지워줌. 
-      localStorage.clear();
+      this.$emit('clearAll');
     }
   }
 }
