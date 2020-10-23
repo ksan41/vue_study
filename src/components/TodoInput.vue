@@ -8,12 +8,12 @@
     <Modal v-if="showModal" @close="showModal = false">
         <h3 slot="header">
             경고!
+            <span>
+                <i class="fas fa-times closeModalBtn" @click="showModal = false"></i>
+            </span>
         </h3>
         <p slot="body">
             할 일을 입력하세요.
-        </p>
-        <p slot="footer">
-            copy right
         </p>
     </Modal>
   </div>
@@ -77,4 +77,12 @@ input:focus{
     vertical-align: middle;
 }
 
+.closeModalBtn:hover{
+    cursor: pointer;
+    opacity: 60%;
+}
+
+.closeModalBtn{
+    color:orangered;
+}
 </style>
