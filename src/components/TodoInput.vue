@@ -23,14 +23,14 @@
 import Modal from './common/Modal.vue'
 
 export default {
-    data: function(){
+    data(){
         return {
             newTodoItem:"",
             showModal: false
         }
     },
     methods: {
-        addTodo: function(){
+        addTodo(){
             // 입력 값이 있을 때만 실행하도록함
             if (this.newTodoItem !== ''){
                 // 상위 컴포넌트(App)에 보낼 메서드 정의, 보낼 값
@@ -41,7 +41,7 @@ export default {
             }
             
         },
-        clearInput: function(){
+        clearInput(){
              this.newTodoItem="";
         }
     },
