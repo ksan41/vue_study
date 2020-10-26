@@ -26,7 +26,6 @@ export const store = new Vuex.Store({
             const obj = {completed:false, item: todoItem}; //텍스트값, 체크 여부 담긴 개게
             localStorage.setItem(todoItem,JSON.stringify(obj)); // 저장로직
             state.todoItems.push(obj); //배열 맨 끝에 값 추가
-            // console.log(this);
          },
          removeOneItem(state,payload){
             localStorage.removeItem(payload.todoItem.item);
